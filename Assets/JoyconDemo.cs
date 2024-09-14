@@ -15,6 +15,8 @@ public class JoyconDemo : MonoBehaviour {
     public Quaternion orientation;
     private Quaternion aim_offset;
 
+    public AudioSource gunshot_clip;
+
 	public GameObject destroyedPrefab;
 	public LaserSight laserSight;  // Reference to the LaserSight script
     void Start ()
@@ -44,8 +46,8 @@ public class JoyconDemo : MonoBehaviour {
 				// Debug.Log ("Right trigger pressed");
 				joycons[jc_ind].SetRumble(160, 320, 0.6f, 100);  // Short 
 				laserSight.Shoot();
-        
-			}
+				gunshot_clip.Play();
+            }
 			// GetButtonDown checks if a button has been released
 			if (j.GetButtonUp (Joycon.Button.SHOULDER_2))
 			{
