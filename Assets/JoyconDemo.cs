@@ -99,7 +99,9 @@ public class JoyconDemo : MonoBehaviour {
 			} else{
 				gameObject.GetComponent<Renderer>().material.color = Color.blue;
 			}
-            gameObject.transform.rotation = orientation;
+			gameObject.transform.rotation = orientation;
+            // https://github.com/Looking-Glass/JoyconLib/issues/8
+			gameObject.transform.Rotate(90,0,0,Space.World); 
         }
     }
 
