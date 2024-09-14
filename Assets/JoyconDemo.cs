@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,19 +13,21 @@ public class JoyconDemo : MonoBehaviour {
     public Vector3 accel;
     public int jc_ind = 0;
     public Quaternion orientation;
+    private Quaternion aim_offset;
 
 	public GameObject destroyedPrefab;
     void Start ()
     {
         gyro = new Vector3(0, 0, 0);
         accel = new Vector3(0, 0, 0);
+        aim_offset = Quaternion.identity;
         // get the public Joycon array attached to the JoyconManager in scene
         joycons = JoyconManager.Instance.j;
 		if (joycons.Count < jc_ind+1){
 			Destroy(gameObject);
 		}
+		
 		gameObject.transform.rotation = orientation;
-		gameObject.transform.Rotate(90,0,0,Space.World);
 		destroyedPrefab = GameObject.FindGameObjectWithTag("Respawn");
 	}
 
@@ -39,7 +42,6 @@ public class JoyconDemo : MonoBehaviour {
             {
 				// Debug.Log ("Right trigger pressed");
 				shooting();
-        
 			}
 			// GetButtonDown checks if a button has been released
 			if (j.GetButtonUp (Joycon.Button.SHOULDER_2))
@@ -89,20 +91,33 @@ public class JoyconDemo : MonoBehaviour {
 
             // Gyro values: x, y, z axis values (in radians per second)
             gyro = j.GetGyro();
-
+            
             // Accel values:  x, y, z axis values (in Gs)
             accel = j.GetAccel();
 
             orientation = j.GetVector();
-			if (j.GetButton(Joycon.Button.DPAD_UP)){
+            
+            if (j.GetButton(Joycon.Button.DPAD_UP)){
 				gameObject.GetComponent<Renderer>().material.color = Color.red;
-			} else{
+			}
+			else
+			{
 				gameObject.GetComponent<Renderer>().material.color = Color.blue;
 			}
-			gameObject.transform.rotation = orientation;
-            // https://github.com/Looking-Glass/JoyconLib/issues/8
-			gameObject.transform.Rotate(90,0,0,Space.World); 
+
+			
+	        Quaternion desiredRot = orientation;
+            if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT))
+			{
+				aim_offset = Quaternion.Inverse(desiredRot);
+			}
+			
+			gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, aim_offset * desiredRot, 20f * Time.deltaTime);
+			// https://github.com/Looking-Glass/JoyconLib/issues/8
+			// gameObject.transform.Rotate(90,0,0,Space.World); 
+			// Debug.Log(gameObject.transform.rotation);
         }
+	    
     }
 
 	void shooting (){
