@@ -4,7 +4,8 @@ public class PanColorChanger : MonoBehaviour
 {
     public Material panOG; // The default material of the pan
     public Material panCook;    // The material to change to when the yolk touches the pan
-
+    public GameObject sparklePrefab; // The prefab for the sparkle effect
+    
     private Renderer panRenderer;
 
     void Update()
@@ -31,6 +32,11 @@ public class PanColorChanger : MonoBehaviour
         {
             // Change the pan's material to the red material
             panRenderer.material = panCook;
+
+
+            // Spawn the sparkle effect at the point of collision
+            Vector3 collisionPoint = collision.contacts[0].point; // Get the point of collision
+            Instantiate(sparklePrefab, collisionPoint, Quaternion.identity);
         }
     }
 }
