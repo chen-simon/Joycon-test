@@ -7,58 +7,58 @@ using System.Text;
 
 public class HIDapi {
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_init();
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_exit();
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern IntPtr hid_error(IntPtr device);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern IntPtr hid_enumerate(ushort vendor_id, ushort product_id);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern void hid_free_enumeration(IntPtr devs);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_get_feature_report(IntPtr device, byte[] data, UIntPtr length);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_get_indexed_string(IntPtr device, int string_index, StringBuilder str, UIntPtr maxlen);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_get_manufacturer_string(IntPtr device, StringBuilder str, UIntPtr maxlen);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_get_product_string(IntPtr device, StringBuilder str, UIntPtr maxlen);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_get_serial_number_string(IntPtr device, StringBuilder str, UIntPtr maxlen);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern IntPtr hid_open(ushort vendor_id, ushort product_id, string serial_number);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern void hid_close(IntPtr device);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern IntPtr hid_open_path(string path);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_read(IntPtr device, byte[] data, UIntPtr length);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_read_timeout(IntPtr dev, byte[] data, UIntPtr length, int milliseconds);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_send_feature_report(IntPtr device, byte[] data, UIntPtr length);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_set_nonblocking(IntPtr device, int nonblock);
 
-    [DllImport("libhidapi")]
+    [DllImport("hidapi")]
     public static extern int hid_write(IntPtr device, byte[] data, UIntPtr length);
 }
 

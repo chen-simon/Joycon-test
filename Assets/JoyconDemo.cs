@@ -16,6 +16,7 @@ public class JoyconDemo : MonoBehaviour {
     private Quaternion aim_offset;
 
 	public GameObject destroyedPrefab;
+	public LaserSight laserSight;  // Reference to the LaserSight script
     void Start ()
     {
         gyro = new Vector3(0, 0, 0);
@@ -28,7 +29,7 @@ public class JoyconDemo : MonoBehaviour {
 		}
 		
 		gameObject.transform.rotation = orientation;
-		destroyedPrefab = GameObject.FindGameObjectWithTag("Respawn");
+		gameObject.transform.Rotate(90,0,0,Space.World);
 	}
 
     // Update is called once per frame
@@ -41,7 +42,9 @@ public class JoyconDemo : MonoBehaviour {
             if (j.GetButtonDown(Joycon.Button.SHOULDER_2))
             {
 				// Debug.Log ("Right trigger pressed");
-				shooting();
+				joycons[jc_ind].SetRumble(160, 320, 0.6f, 100);  // Short 
+				laserSight.Shoot();
+        
 			}
 			// GetButtonDown checks if a button has been released
 			if (j.GetButtonUp (Joycon.Button.SHOULDER_2))
@@ -119,33 +122,4 @@ public class JoyconDemo : MonoBehaviour {
         }
 	    
     }
-
-	void shooting (){
-		Debug.Log("Bia Bia");
-		joycons[jc_ind].SetRumble(160, 320, 0.6f, 100);  // Short 
-		Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
-    	RaycastHit hitInfo;
-
-		// Perform the raycast
-		if (Physics.Raycast(ray, out hitInfo)) {
-			// Raycast hit something
-			Debug.Log("Hit: " + hitInfo.collider.name);
-			GameObject hitObject = hitInfo.collider.gameObject;
-
-			//
-			Instantiate(destroyedPrefab, hitObject.transform.position, hitObject.transform.rotation);
-
-			// 
-			Destroy(hitObject);
-			// Apply any effects or logic for hitting an object
-			// For example, you could deal damage to the hit object
-			// You can also use hitInfo.point to get the point of impact
-			// and hitInfo.normal to get the surface normal at the point of impact
-		} else {
-			// Raycast missed
-			Debug.Log("Missed!");
-		}
-
-	}
-
 }
