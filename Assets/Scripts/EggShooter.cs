@@ -109,6 +109,7 @@ public class EggShooter : MonoBehaviour, IShootable
         
         // Apply force in the X direction and add upward force for an arc
         Vector3 force = Vector3.right * shootForce + Vector3.up * upwardForce;
+        rb.AddTorque(new Vector3(10,10,10));
         rb.AddForce(force);
 
         // Reset isShot since a new egg is being shot
