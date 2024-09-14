@@ -68,7 +68,7 @@
 
 using UnityEngine;
 
-public class EggShooter : MonoBehaviour
+public class EggShooter : MonoBehaviour, IShootable
 {
     public GameObject eggPrefab;
     public GameObject eggShellPrefab;
@@ -125,6 +125,11 @@ public class EggShooter : MonoBehaviour
         }
     }
 
+    public void TakeShot()
+    {
+        BreakEgg();
+    }
+
     void BreakEgg()
     {
         if (currentEgg != null)
@@ -155,4 +160,6 @@ public class EggShooter : MonoBehaviour
             // Optionally, you can apply some additional forces to the shells to make them fly apart more dramatically
         }
     }
+
+    
 }
