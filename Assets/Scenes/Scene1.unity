@@ -443,7 +443,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195250745}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1251,7 +1251,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334891598}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1562,6 +1562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunBarrel: {fileID: 1860220820}
   laserRange: 50
+  egg: {fileID: 0}
 --- !u!120 &1839533902
 LineRenderer:
   serializedVersion: 2
@@ -2010,6 +2011,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 295423713614525385, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
+      propertyPath: bell_ring
+      value: 
+      objectReference: {fileID: 7067637921766944457}
+    - target: {fileID: 295423713614525385, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
+      propertyPath: egg_crack
+      value: 
+      objectReference: {fileID: 7067637921766944458}
+    - target: {fileID: 295423713614525385, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
       propertyPath: shootForce
       value: 750
       objectReference: {fileID: 0}
@@ -2017,6 +2026,10 @@ PrefabInstance:
       propertyPath: yolkPrefab
       value: 
       objectReference: {fileID: 605335962}
+    - target: {fileID: 295423713614525385, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
+      propertyPath: chicken_bawk
+      value: 
+      objectReference: {fileID: 7067637921766944456}
     - target: {fileID: 295423713614525385, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
       propertyPath: startOffset.x
       value: -15
@@ -2082,6 +2095,21 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
+--- !u!82 &7067637921766944456 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 352901011902754583, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
+  m_PrefabInstance: {fileID: 7067637921766944455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &7067637921766944457 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6390150904794322133, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
+  m_PrefabInstance: {fileID: 7067637921766944455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &7067637921766944458 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 659550073470025477, guid: 3e7562864b3d64ea1bba8d27c9fd71b5, type: 3}
+  m_PrefabInstance: {fileID: 7067637921766944455}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

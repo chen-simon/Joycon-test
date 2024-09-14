@@ -5,12 +5,12 @@ public class LaserSight : MonoBehaviour
     public Transform gunBarrel;  // The position where the laser starts (e.g., gun barrel)
     public float laserRange = 50f;  // The max distance the laser can reach
     private LineRenderer lineRenderer;
-
+    public GameObject egg;
     void Start()
     {
         // Get the LineRenderer component
         lineRenderer = GetComponent<LineRenderer>();
-        
+        egg = GameObject.FindGameObjectWithTag("Respawn");
         // Set the number of positions in the line (start and end point)
         lineRenderer.positionCount = 2;
 
@@ -49,8 +49,9 @@ public class LaserSight : MonoBehaviour
             // Raycast hit something
             Debug.Log("Hit: " + hitInfo.collider.name);
             GameObject hitObject = hitInfo.collider.gameObject;
+            IShootable shootable = egg.GetComponent<IShootable>();
+            shootable.TakeShot();
 
-            Destroy(hitObject);
         }
         else
         {

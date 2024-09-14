@@ -78,6 +78,11 @@ public class EggShooter : MonoBehaviour, IShootable
     public float upwardForce = 300f; // Upward force for the arc
     public float breakForce = 2f; // Additional force applied when the egg breaks
 
+    public AudioSource egg_crack;   
+    public AudioSource bell_ring;
+
+    public AudioSource chicken_bawk;
+
     private GameObject currentEgg;
     private bool isShot = false; // Tracks whether the egg has been hit by another projectile
 
@@ -86,11 +91,14 @@ public class EggShooter : MonoBehaviour, IShootable
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ShootEgg();
+            bell_ring.Play();
+            chicken_bawk.Play();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             isShot = true;
+            egg_crack.Play();
             BreakEgg();
         }
     }
