@@ -13,6 +13,7 @@ public class JoyconDemo : MonoBehaviour {
     public int jc_ind = 0;
     public Quaternion orientation;
 
+	public GameObject destroyedPrefab;
     void Start ()
     {
         gyro = new Vector3(0, 0, 0);
@@ -22,6 +23,9 @@ public class JoyconDemo : MonoBehaviour {
 		if (joycons.Count < jc_ind+1){
 			Destroy(gameObject);
 		}
+		gameObject.transform.rotation = orientation;
+		gameObject.transform.Rotate(90,0,0,Space.World);
+		destroyedPrefab = GameObject.FindGameObjectWithTag("Respawn");
 	}
 
     // Update is called once per frame
@@ -33,7 +37,24 @@ public class JoyconDemo : MonoBehaviour {
 			// GetButtonDown checks if a button has been pressed (not held)
             if (j.GetButtonDown(Joycon.Button.SHOULDER_2))
             {
-				Debug.Log ("Shoulder button 2 pressed");
+				// Debug.Log ("Right trigger pressed");
+				shooting();
+        
+			}
+			// GetButtonDown checks if a button has been released
+			if (j.GetButtonUp (Joycon.Button.SHOULDER_2))
+			{
+				// Debug.Log ("Right trigger released");
+			}
+			// GetButtonDown checks if a button is currently down (pressed or held)
+			if (j.GetButton (Joycon.Button.SHOULDER_2))
+			{
+				// Debug.Log ("Right trigger held");
+			}
+
+			if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT))
+            {
+				Debug.Log ("DPAD_RIGHT pressed");
 				// GetStick returns a 2-element vector with x/y joystick components
 				Debug.Log(string.Format("Stick x: {0:N} Stick y: {1:N}",j.GetStick()[0],j.GetStick()[1]));
             
@@ -41,14 +62,14 @@ public class JoyconDemo : MonoBehaviour {
 				j.Recenter ();
 			}
 			// GetButtonDown checks if a button has been released
-			if (j.GetButtonUp (Joycon.Button.SHOULDER_2))
+			if (j.GetButtonUp (Joycon.Button.DPAD_RIGHT))
 			{
-				Debug.Log ("Shoulder button 2 released");
+				Debug.Log ("DPAD_RIGHT released");
 			}
 			// GetButtonDown checks if a button is currently down (pressed or held)
-			if (j.GetButton (Joycon.Button.SHOULDER_2))
+			if (j.GetButton (Joycon.Button.DPAD_RIGHT))
 			{
-				Debug.Log ("Shoulder button 2 held");
+				Debug.Log ("DPAD_RIGHT held");
 			}
 
 			if (j.GetButtonDown (Joycon.Button.DPAD_DOWN)) {
@@ -78,7 +99,38 @@ public class JoyconDemo : MonoBehaviour {
 			} else{
 				gameObject.GetComponent<Renderer>().material.color = Color.blue;
 			}
-            gameObject.transform.rotation = orientation;
+			gameObject.transform.rotation = orientation;
+            // https://github.com/Looking-Glass/JoyconLib/issues/8
+			gameObject.transform.Rotate(90,0,0,Space.World); 
         }
     }
+
+	void shooting (){
+		Debug.Log("Bia Bia");
+		joycons[jc_ind].SetRumble(160, 320, 0.6f, 100);  // Short 
+		Ray ray = new Ray(gameObject.transform.position, gameObject.transform.forward);
+    	RaycastHit hitInfo;
+
+		// Perform the raycast
+		if (Physics.Raycast(ray, out hitInfo)) {
+			// Raycast hit something
+			Debug.Log("Hit: " + hitInfo.collider.name);
+			GameObject hitObject = hitInfo.collider.gameObject;
+
+			//
+			Instantiate(destroyedPrefab, hitObject.transform.position, hitObject.transform.rotation);
+
+			// 
+			Destroy(hitObject);
+			// Apply any effects or logic for hitting an object
+			// For example, you could deal damage to the hit object
+			// You can also use hitInfo.point to get the point of impact
+			// and hitInfo.normal to get the surface normal at the point of impact
+		} else {
+			// Raycast missed
+			Debug.Log("Missed!");
+		}
+
+	}
+
 }
