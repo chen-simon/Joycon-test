@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2827125845110357068}
-  - component: {fileID: 4515034177479673401}
   - component: {fileID: 5877251157379806251}
   - component: {fileID: 1859962705224399479}
   - component: {fileID: 295423713614525385}
   - component: {fileID: 198373154138557752}
+  - component: {fileID: 217755047318131524}
   m_Layer: 0
   m_Name: eggPrefab
   m_TagString: Untagged
@@ -31,19 +31,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -26.82, y: 1.45, z: 3.567782}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4515034177479673401
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869660320922803608}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5877251157379806251
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -105,7 +97,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &295423713614525385
 MonoBehaviour:
@@ -153,3 +145,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!33 &217755047318131524
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869660320922803608}
+  m_Mesh: {fileID: -4591002169977161409, guid: 5adfa0dc8d87f40fb85a4dc1c6cf5a57, type: 3}
