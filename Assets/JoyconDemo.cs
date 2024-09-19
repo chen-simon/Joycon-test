@@ -19,6 +19,8 @@ public class JoyconDemo : MonoBehaviour {
 
 	public GameObject destroyedPrefab;
 	public LaserSight laserSight;  // Reference to the LaserSight script
+	
+	public RectTransform pointer;
     void Start ()
     {
         gyro = new Vector3(0, 0, 0);
@@ -31,7 +33,6 @@ public class JoyconDemo : MonoBehaviour {
 		}
 		
 		gameObject.transform.rotation = orientation;
-		gameObject.transform.Rotate(90,0,0,Space.World);
 	}
 
     // Update is called once per frame
@@ -96,10 +97,11 @@ public class JoyconDemo : MonoBehaviour {
 
             // Gyro values: x, y, z axis values (in radians per second)
             gyro = j.GetGyro();
-            
+
             // Accel values:  x, y, z axis values (in Gs)
             accel = j.GetAccel();
-
+            Debug.Log(accel);
+            
             orientation = j.GetVector();
             
             if (j.GetButton(Joycon.Button.DPAD_UP)){
@@ -110,18 +112,40 @@ public class JoyconDemo : MonoBehaviour {
 				gameObject.GetComponent<Renderer>().material.color = Color.blue;
 			}
 
-			
-	        Quaternion desiredRot = orientation;
+            Quaternion desiredRot = orientation;
+            
+            // Map orientation to screen pointer movement
+            UpdatePointerPosition(orientation);
+            
             if (j.GetButtonDown(Joycon.Button.DPAD_RIGHT))
 			{
 				aim_offset = Quaternion.Inverse(desiredRot);
 			}
 			
 			gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, aim_offset * desiredRot, 20f * Time.deltaTime);
+			
 			// https://github.com/Looking-Glass/JoyconLib/issues/8
 			// gameObject.transform.Rotate(90,0,0,Space.World); 
 			// Debug.Log(gameObject.transform.rotation);
         }
 	    
+    }
+    
+    // Method to map the Joycon orientation to the pointer's position on the screen
+    void UpdatePointerPosition(Quaternion joyconOrientation)
+    {
+	    // Convert the orientation to a forward vector (direction the Joycon is pointing)
+	    Vector3 forward = joyconOrientation * Vector3.forward;
+
+	    // You can use the x and y axes from the forward vector to calculate pointer position
+	    // Map these values to the screen (e.g., multiplying by some sensitivity factor)
+	    float pointerSensitivity = 300f;  // Adjust this value to fine-tune the pointer speed
+
+	    // Assuming you want to move the pointer in 2D space (x and y coordinates of the screen)
+	    float newX = forward.x * pointerSensitivity;
+	    float newY = forward.y * pointerSensitivity;
+
+	    // Set the pointer's anchored position (used for UI elements in Canvas)
+	    pointer.anchoredPosition = new Vector2(newX, newY);
     }
 }
